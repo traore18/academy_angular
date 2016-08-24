@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Angular Js</title>
+	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body ng-app="myApp">
+    
+    <div class="container" ng-controller="myCtrl">
+        <h1>Patient Record</h1>
+            <table class="table table-hover">
+            <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <th>Action</th>
+            </tr>
+            <tr ng-repeat="patient in patients">
+                <td>{{patient.pid}}</td>
+                <td>{{patient.first_name | uppercase}}</td> 
+                <td>{{patient.last_name| uppercase}}</td> 
+                <td>{{patient.age}}</td>        
+                <td>
+                <a href="" ng-click"selectPatient(patient.pid)">View</a>
+                <a href="" ng-click"EditPatient(patient.pid)">Edit</a>
+                </td>
+
+            </tr>
+        </table>
+        <hr/>
+       <div ng-include="'partials/patient.html'"></div> 
+    </div>
+    <!--filter  
+        <div>{{2000| currency:"GNF"}}</div>
+        <div>{{patients|json}}</div>
+    -->
+    
+
+    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript">
+    	var app= angular.module("myApp",[]);
+    	app.controller("myCtrl", function($scope){
+    		$scope.patients ={
+    			"1" : {
+    				"pid":"1",
+    				"first_name":"John",
+    				"last_name": "Doe",
+    				"age":30
+    			},
+    			"2" : {
+    				"pid":"2",
+    				"first_name":"Hamda",
+    				"last_name": "Dabo",
+    				"age":28
+    			},
+    			"3" : {
+    				"pid":"3",
+    				"first_name":"Samuel",
+    				"last_name": "Mesfin",
+    				"age":34	
+    			},
+                "4" : {
+                    "pid":"4",
+                    "first_name":"Aboubacar S.",
+                    "last_name": "Douno",
+                    "age":20 
+                }
+    		};
+            //function
+            $scope.currentPatient=null;
+
+            $scope.selectPatient=function(pid){
+                $scope.currentPatient=$scope.patients[pid];
+                console.log($scope.currentPatient);
+            };
+    	});
+    </script>
+</body>
+</html>
